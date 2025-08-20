@@ -1,10 +1,15 @@
+import { Sorter } from "./Sorter";
+
 class Node {
   next: Node | null = null;
 
   constructor(public data: number) {}
 }
 
-export class LinkedList {
+export class LinkedList extends Sorter {
+  constructor() {
+    super();
+  }
   head: Node | null = null;
 
   add(data: number): void {
@@ -24,6 +29,52 @@ export class LinkedList {
   }
 
   get length(): number {
-    return 987;
+    if (!this.head) return 0;
+
+    let length = 1;
+    let node = this.head;
+    while (node.next) {
+      length++;
+      node = node.next;
+    }
+    return length;
+  }
+
+  at(index: number): Node {
+    if (!this.head) {
+      throw new Error("no index");
+    }
+    let counter = 0;
+    let node: Node | null = this.head;
+    while (node) {
+      if (counter === index) return node;
+
+      counter++;
+      node = node.next;
+    }
+
+    throw new Error("no index");
+  }
+
+  compare(leftIndex: number, rightIndex: number): boolean {
+    if (!this.head) throw new Error("there is no nodesin linkedlist");
+
+    return this.at(leftIndex).data > this.at(rightIndex).data;
+  }
+
+  swap(leftIndex: number, rightIndex: number): void {
+    [this.at(leftIndex).data, this.at(rightIndex).data] = [this.at(rightIndex).data, this.at(leftIndex).data];
+  }
+
+  print(): void {
+    if (!this.head) return;
+
+    let node: Node | null = this.head;
+    while (node) {
+      if (node.next) process.stdout.write(`${node.data} --> `);
+      else process.stdout.write(`${node.data} `);
+
+      node = node.next;
+    }
   }
 }
