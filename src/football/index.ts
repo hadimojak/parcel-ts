@@ -12,7 +12,6 @@ enum MatchResult {
 const reader = new CsvReader(path.join(__dirname, "..", "..", "football.csv"));
 const matchesData = reader.read();
 
-console.log(matchesData);
 
 
 const manUnitedWinMatchCount = matchesData.reduce((result: number, cur: string[]) => {
@@ -21,4 +20,3 @@ const manUnitedWinMatchCount = matchesData.reduce((result: number, cur: string[]
   else return result;
 }, 0);
 
-console.log(manUnitedWinMatchCount);
